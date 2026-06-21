@@ -1,0 +1,80 @@
+Ringkasan Proyek Infografis
+
+Tujuan:
+- Menunjukkan ketidakadilan iklim (climate justice) untuk negara‑negara kepulauan Pasifik yang berkontribusi sangat sedikit pada emisi gas rumah kaca, namun menjadi korban utama bencana iklim.
+
+Data:
+- 6 440 baris data gabungan (emisi, kenaikan permukaan laut, dampak bencana, kerugian ekonomi).
+- Sekitar 54 % nilai kosong, diatasi dengan Hierarchical Mean Imputation (tahap 1: rata‑rata tahun yang sama; tahap 2: rata‑rata indikator seluruh tahun; tahap 3: 0).
+
+Pengolahan:
+- Script merge_and_impute.py menyiapkan grid lengkap, mengisi nilai kosong, mengekspor ke data_final_imputed.json untuk visualisasi.
+
+Visualisasi (React + D3):
+1. Babak 1: The Paradox – Emisi per kapita (waffle atau sorted horizontal bar chart).
+2. Babak 2: The Silent Threat – Kenaikan permukaan laut (radial line atau area chart, warna neon cyan).
+3. Babak 3: The Human & Economic Toll – Korban & kerugian (proportional‑symbol map + treemap, warna coral red).
+4. Babak 4: Bridging the Data Gaps – Transparansi imputasi (heat‑map matrix).
+
+Desain UI:
+- Tema dark navy (#0a192f) dengan aksen neon cyan (#00f5d4) dan coral red (#f25c54).
+- Font judul: Space Grotesk atau Outfit. Font paragraf: Inter atau Sora.
+
+Struktur Repo:
+Projek Infografis/
+├─ merge_and_impute.py      # preprocessing & imputasi
+├─ data_final_imputed.json # dataset bersih
+├─ dataviz-react/           # front‑end React + D3
+│   ├─ src/App.jsx
+│   ├─ src/components/D3Charts.jsx
+│   └─ index.html
+└─ README.md                # dokumentasi ini
+
+Cara Menjalankan:
+1. pip install pandas
+2. python merge_and_impute.py   # menghasilkan data_final_imputed.json
+3. cd dataviz-react && npm install && npm run dev   # menjalankan visualisasi pada http://localhost:5173
+
+Narasi Respons kepada Dosen:
+---
+Subject: Laporan Akhir Proyek Infografis & Visualisasi Data – "The Sinking Voices of the Pacific"
+
+Yth. Bapak/Ibu [Nama Dosen],
+Dosen Mata Kuliah Metode Visualisasi Data, Universitas [...]
+
+Dengan hormat,
+Saya menyampaikan hasil akhir proyek Infografis & Visualisasi Data Interaktif yang kami kerjakan untuk kompetisi internasional serta sebagai tugas besar mata kuliah Metode Visualisasi Data.
+
+1. Latar Belakang & Tujuan
+- Fokus pada keadilan iklim untuk negara‑negara Kepulauan Pasifik yang secara proporsional mengalami dampak paling parah meski emisinya sangat minim. Menggunakan storytelling empat babak untuk menuntun audiens memahami data secara emosional dan ilmiah.
+
+2. Data & Metodologi
+- Menggabungkan tiga set data utama: emisi per kapita, kenaikan permukaan laut, dan dampak bencana (korban + kerugian ekonomi) – total 6.440 baris.
+- Karena 54 % nilai hilang, diterapkan Hierarchical Mean Imputation (tahap 1 → tahun yang sama, tahap 2 → rata‑rata regional, tahap 3 → 0).
+- Semua proses preprocessing tercatat dalam script merge_and_impute.py yang menghasilkan data_final_imputed.json siap dipakai visualisasi.
+
+3. Visualisasi Interaktif
+- Dibangun dengan React + D3.js pada folder dataviz-react.
+- Empat babak visual: Paradox (emisi), Silent Threat (kenaikan laut), Human & Economic Toll (korban & kerugian), Bridging the Data Gaps (transparansi data).
+- Desain UI mengikuti premium dark‑mode dengan palet warna laut, tipografi modern, serta animasi mikro‑hover.
+
+4. Cara Menjalankan
+1. pip install pandas
+2. python merge_and_impute.py   # menghasilkan data_final_imputed.json
+3. cd dataviz-react && npm install && npm run dev   # meluncurkan aplikasi di localhost.
+
+5. Kesimpulan & Pengajuan
+- Proyek berhasil menvisualisasikan data kompleks secara transparan, menekankan kekurangan data sekaligus memberikan estimasi yang dapat dipertanggungjawabkan.
+- Kami berharap hasil ini dapat dipertimbangkan sebagai bukti kompetensi dalam teknik visualisasi, pemrosesan data, serta penyusunan narasi visual yang kuat.
+- Mohon arahan lebih lanjut terkait penilaian, kemungkinan perbaikan, atau presentasi tambahan di kelas.
+
+Terima kasih atas bimbingan Bapak/Ibu selama proses pengerjaan.
+
+Hormat saya,
+[Nama Mahasiswa]
+[NRP / NIM]
+[Prodi – Fakultas]
+[Email – No. HP]
+---
+
+Silakan menyalin teks di atas sesuai kebutuhan.
