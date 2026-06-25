@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
 /**
- * Canvas-based subtle floating dots — white minimalist theme.
- * Barely perceptible — adds gentle life without distracting.
+ * Canvas-based subtle floating dots — dark mode neon theme.
+ * Neon cyan particles on dark charcoal background.
  */
 export default function ParticleBackground({ scrollProgress = 0 }) {
   const canvasRef = useRef(null);
@@ -41,10 +41,10 @@ export default function ParticleBackground({ scrollProgress = 0 }) {
         size: Math.random() * 2 + 0.5,
         speedY: -(Math.random() * 0.12 + 0.04),
         speedX: (Math.random() - 0.5) * 0.08,
-        opacity: Math.random() * 0.06 + 0.02,
-        hue: 174 + Math.random() * 20,
-        sat: 15 + Math.random() * 25,
-        light: 65 + Math.random() * 20,
+        opacity: Math.random() * 0.12 + 0.04,
+        hue: 168 + Math.random() * 30,
+        sat: 60 + Math.random() * 35,
+        light: 60 + Math.random() * 30,
       });
     }
 
@@ -63,7 +63,7 @@ export default function ParticleBackground({ scrollProgress = 0 }) {
         if (p.x < -10) p.x = width + 10;
         if (p.x > width + 10) p.x = -10;
 
-        const alpha = Math.min(p.opacity * (1 + progress * 0.3), 0.12);
+        const alpha = Math.min(p.opacity * (1 + progress * 0.3), 0.25);
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${p.hue}, ${p.sat}%, ${p.light}%, ${alpha})`;

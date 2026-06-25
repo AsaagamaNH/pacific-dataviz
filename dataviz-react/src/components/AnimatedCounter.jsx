@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 /**
  * Animated counter that counts up from 0 to a target value.
  * Triggers when scrolled into view using IntersectionObserver.
+ * Renders inline — no wrapper divs.
  */
 export default function AnimatedCounter({
   end,
@@ -10,7 +11,6 @@ export default function AnimatedCounter({
   prefix = '',
   suffix = '',
   decimals = 0,
-  label = '',
 }) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
@@ -63,11 +63,8 @@ export default function AnimatedCounter({
     : Math.round(count).toLocaleString();
 
   return (
-    <div className="stat-item" ref={ref}>
-      <div className="stat-number">
-        {prefix}{displayValue}{suffix}
-      </div>
-      {label && <div className="stat-label">{label}</div>}
-    </div>
+    <span ref={ref}>
+      {prefix}{displayValue}{suffix}
+    </span>
   );
 }

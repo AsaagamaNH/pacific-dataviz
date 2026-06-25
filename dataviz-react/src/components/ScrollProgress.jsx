@@ -1,39 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 /**
- * Fixed vertical progress indicator on the right side.
- * Shows chapter dots with labels on hover, highlights active chapter.
- * Click-to-navigate to any chapter.
+ * Fixed vertical progress indicator — dark mode.
+ * Reads section IDs from props and tracks scroll position.
+ *
+ * Props:
+ *   sections: Array of { id, label }
  */
+export default function ScrollProgress({ sections = [] }) {
+  const [activeIdx, setActiveIdx] = useState(0);
 
-const CHAPTERS = [
-  { id: 'geomap', label: 'Where They Are' },
-  { id: 'paradox', label: 'The Paradox' },
-  { id: 'tides', label: 'Rising Tides' },
-  { id: 'economic', label: 'Economic Toll' },
-  { id: 'rainfall', label: 'Rainfall Shifts' },
-  { id: 'data-gaps', label: 'Data Gaps' },
-];
+  useEffect(() => {
+    if (!sections.length) return;
 
-export default function ScrollProgress({ activeStep, onNavigate }) {
+    const handleScroll = () => {
+      const scrollY = window.scrollY + window.innerHeight * 0.4;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i].id);
+        if (el && el.offsetTop <= scrollY) {
+          setActiveIdx(i);
+          return;
+        }
+      }
+      setActiveIdx(0);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sections]);
+
+  const handleNavigate = (idx) => {
+    const el = document.getElementById(sections[idx].id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  if (!sections.length) return null;
+
   return (
     <nav className="scroll-progress" aria-label="Story progress">
-      {CHAPTERS.map((chapter, idx) => (
+      {sections.map((section, idx) => (
         <div
-          key={chapter.id}
-          className={`progress-dot-wrapper ${activeStep === idx ? 'active' : ''}`}
-          onClick={() => onNavigate && onNavigate(idx)}
+          key={section.id}
+          className={`progress-dot-wrapper ${activeIdx === idx ? 'active' : ''}`}
+          onClick={() => handleNavigate(idx)}
           role="button"
           tabIndex={0}
-          aria-label={`Navigate to ${chapter.label}`}
+          aria-label={`Navigate to ${section.label}`}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              onNavigate && onNavigate(idx);
+              handleNavigate(idx);
             }
           }}
         >
-          <span className="progress-label">{chapter.label}</span>
+          <span className="progress-label">{section.label}</span>
           <div className="progress-dot" />
         </div>
       ))}
