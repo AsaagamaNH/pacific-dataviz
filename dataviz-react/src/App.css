@@ -6,10 +6,8 @@
 /* ---- PARTICLE BACKGROUND ---- */
 .particle-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   z-index: var(--z-particles);
   pointer-events: none;
 }
@@ -17,7 +15,6 @@
 /* ==============================
    HERO SECTION
    ============================== */
-
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -39,13 +36,25 @@
 
 .hero-eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   color: var(--accent-teal);
   margin-bottom: var(--space-md);
   opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--accent-teal);
+  opacity: 0.4;
 }
 
 .hero-title {
@@ -58,20 +67,27 @@
   letter-spacing: -0.03em;
 }
 
-.hero-title .accent {
-  color: var(--accent-teal);
-}
+.hero-title .accent { color: var(--accent-teal); }
+.hero-title .italic { font-style: italic; color: var(--text-secondary); }
 
 .hero-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   color: var(--text-secondary);
   line-height: 1.8;
   max-width: 600px;
   margin: 0 auto var(--space-xl);
 }
 
-/* Hero Stats Grid */
+.hero-divider {
+  width: 100%;
+  max-width: 400px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+  margin: var(--space-lg) auto;
+}
+
+/* Hero Stats */
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -99,7 +115,7 @@
 
 .stat-label {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -107,7 +123,7 @@
   margin-top: var(--space-xs);
 }
 
-/* Scroll Down Indicator */
+/* Scroll Down */
 .scroll-indicator {
   position: absolute;
   bottom: var(--space-xl);
@@ -123,9 +139,7 @@
   transition: opacity var(--transition-base);
 }
 
-.scroll-indicator:hover {
-  opacity: 1;
-}
+.scroll-indicator:hover { opacity: 1; }
 
 .scroll-indicator span {
   font-size: 0.7rem;
@@ -134,29 +148,58 @@
   color: var(--text-muted);
 }
 
-.scroll-indicator svg {
-  color: var(--accent-teal);
-}
+.scroll-indicator svg { color: var(--accent-teal); }
 
 @keyframes scrollBounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
+  50%      { transform: translateX(-50%) translateY(10px); }
 }
-
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes statPopIn {
   from { opacity: 0; transform: scale(0.7) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ==============================
+   CHAPTER INTRO BANNER
+   ============================== */
+.chapter-intro {
+  position: relative;
+  z-index: var(--z-content);
+  background: var(--bg-secondary);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.chapter-intro-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent-teal);
+  margin-bottom: var(--space-md);
+  opacity: 0.8;
+}
+
+.chapter-intro h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  color: var(--text-secondary);
+  font-style: italic;
+  font-weight: 400;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 /* ==============================
    SCROLLYTELLING SECTION
    ============================== */
-
 .scrollytelling-section {
   position: relative;
   z-index: var(--z-content);
@@ -168,7 +211,6 @@
   position: relative;
 }
 
-/* Left side: scrolling text cards */
 .scrolly-text-column {
   flex: 0 0 42%;
   position: relative;
@@ -176,7 +218,6 @@
   padding: 0 var(--space-lg);
 }
 
-/* Right side: sticky chart */
 .scrolly-chart-column {
   flex: 1;
   position: sticky;
@@ -197,7 +238,7 @@
   justify-content: center;
 }
 
-/* Story Step Cards */
+/* Step Cards */
 .story-step {
   min-height: 90vh;
   display: flex;
@@ -205,16 +246,11 @@
   padding: var(--space-lg) 0;
 }
 
-.story-step:first-child {
-  padding-top: 30vh;
-}
-
-.story-step:last-child {
-  padding-bottom: 40vh;
-}
+.story-step:first-child { padding-top: 30vh; }
+.story-step:last-child  { padding-bottom: 40vh; }
 
 .step-card {
-  background: var(--card-bg);
+  background: var(--bg-card);
   border: 1px solid var(--card-border);
   border-left: 3px solid transparent;
   border-radius: var(--radius-md);
@@ -257,25 +293,39 @@
   color: var(--text-secondary);
 }
 
-.step-card .highlight {
-  color: var(--accent-teal);
-  font-weight: 600;
+.step-card .highlight       { color: var(--accent-teal);  font-weight: 600; }
+.step-card .highlight-coral { color: var(--accent-coral); font-weight: 600; }
+.step-card .highlight-amber { color: var(--accent-amber); font-weight: 600; }
+
+/* Step stat callout */
+.step-stat {
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
 }
 
-.step-card .highlight-coral {
-  color: var(--accent-coral);
-  font-weight: 600;
+.step-stat-number {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
 }
 
-.step-card .highlight-amber {
-  color: var(--accent-amber);
-  font-weight: 600;
+.step-stat-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
 }
 
 /* ==============================
    SCROLL PROGRESS INDICATOR
    ============================== */
-
 .scroll-progress {
   position: fixed;
   right: 2rem;
@@ -285,7 +335,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .progress-dot-wrapper {
@@ -303,7 +353,7 @@
 
 .progress-label {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 500;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -319,8 +369,7 @@
 }
 
 .progress-dot {
-  width: 10px;
-  height: 10px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   background: #e2e8f0;
   border: 2px solid transparent;
@@ -341,9 +390,147 @@
 }
 
 /* ==============================
-   CLOSING / METHODOLOGY SECTION
+   COUNTRY DETAIL PANEL
    ============================== */
 
+/* Backdrop overlay */
+.detail-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: var(--z-overlay);
+  animation: fadeIn 0.3s ease;
+  cursor: pointer;
+}
+
+/* Slide-in panel */
+.country-detail-panel {
+  position: fixed;
+  top: 0; right: 0;
+  width: 440px;
+  max-width: 90vw;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: calc(var(--z-overlay) + 1);
+  background: var(--bg-primary);
+  border-left: 1px solid var(--card-border);
+  box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.panel-header h2 {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.panel-close {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.panel-close:hover {
+  background: #f1f5f9;
+  color: var(--text-primary);
+}
+
+/* Summary stats row */
+.panel-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.panel-stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.panel-stat-value {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-teal);
+  line-height: 1.2;
+}
+
+.panel-stat-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* Mini chart sections */
+.mini-chart-section {
+  margin-bottom: var(--space-lg);
+}
+
+.mini-chart-title {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mini-chart-container {
+  width: 100%;
+  height: 110px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.mini-chart-container.strip {
+  height: 44px;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ==============================
+   CLOSING / ABOUT SECTION
+   ============================== */
 .closing-section {
   position: relative;
   z-index: var(--z-content);
@@ -369,8 +556,7 @@
 }
 
 .closing-divider {
-  width: 80px;
-  height: 3px;
+  width: 80px; height: 3px;
   background: linear-gradient(90deg, var(--accent-teal), transparent);
   border: none;
   margin: var(--space-xl) auto;
@@ -395,10 +581,7 @@
   letter-spacing: 0.15em;
 }
 
-.data-sources ul {
-  list-style: none;
-  padding: 0;
-}
+.data-sources ul { list-style: none; padding: 0; }
 
 .data-sources li {
   padding: var(--space-sm) 0;
@@ -407,15 +590,8 @@
   border-bottom: 1px solid #f1f5f9;
 }
 
-.data-sources li:last-child {
-  border-bottom: none;
-}
-
-.data-sources li::before {
-  content: '→ ';
-  color: var(--accent-teal);
-  font-weight: 600;
-}
+.data-sources li:last-child { border-bottom: none; }
+.data-sources li::before { content: '→ '; color: var(--accent-teal); font-weight: 600; }
 
 /* Footer */
 .footer {
@@ -428,18 +604,11 @@
   background: var(--bg-primary);
 }
 
-.footer a {
-  color: var(--accent-teal);
-  text-decoration: none;
-}
-
 /* ==============================
    LOADING STATE
    ============================== */
-
 .loading-screen {
-  width: 100vw;
-  height: 100vh;
+  width: 100vw; height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -449,108 +618,43 @@
 }
 
 .loading-spinner {
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   border: 3px solid #f1f5f9;
   border-top-color: var(--accent-teal);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-.loading-screen p {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-}
+.loading-screen p { color: var(--text-muted); font-size: 0.85rem; }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ==============================
-   CHART TITLE IN VIZ PANEL
+   RESPONSIVE
    ============================== */
-
-.chart-title {
-  position: absolute;
-  top: var(--space-lg);
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-muted);
-  z-index: 5;
-  white-space: nowrap;
-}
-
-/* ==============================
-   RESPONSIVE BREAKPOINTS
-   ============================== */
-
 @media (max-width: 1024px) {
-  .scrolly-container {
-    flex-direction: column;
-  }
-
-  .scrolly-text-column {
-    flex: none;
-    padding: 0 var(--space-md);
-  }
-
+  .scrolly-container { flex-direction: column; }
+  .scrolly-text-column { flex: none; padding: 0 var(--space-md); }
   .scrolly-chart-column {
     position: relative;
     height: 60vh;
     order: -1;
     margin-bottom: var(--space-lg);
   }
-
-  .story-step {
-    min-height: auto;
-    padding: var(--space-lg) 0;
-  }
-
-  .story-step:first-child {
-    padding-top: var(--space-lg);
-  }
-
-  .story-step:last-child {
-    padding-bottom: var(--space-lg);
-  }
-
-  .step-card {
-    max-width: 100%;
-  }
-
-  .scroll-progress {
-    display: none;
-  }
-
-  .hero-stats {
-    gap: var(--space-lg);
-  }
+  .story-step { min-height: auto; padding: var(--space-lg) 0; }
+  .story-step:first-child { padding-top: var(--space-lg); }
+  .story-step:last-child  { padding-bottom: var(--space-lg); }
+  .step-card { max-width: 100%; }
+  .scroll-progress { display: none; }
+  .hero-stats { gap: var(--space-lg); }
+  .country-detail-panel { width: 100%; max-width: 100%; }
 }
 
 @media (max-width: 640px) {
-  .hero-title {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-
-  .hero-stats {
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .scrolly-chart-column {
-    height: 50vh;
-  }
-
-  .step-card {
-    padding: var(--space-lg) var(--space-md);
-  }
-
-  .closing-section {
-    padding: var(--space-xl) var(--space-md);
-  }
+  .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .hero-stats { flex-direction: column; gap: var(--space-lg); }
+  .scrolly-chart-column { height: 50vh; }
+  .step-card { padding: var(--space-lg) var(--space-md); }
+  .closing-section { padding: var(--space-xl) var(--space-md); }
+  .panel-stats { grid-template-columns: 1fr; }
 }

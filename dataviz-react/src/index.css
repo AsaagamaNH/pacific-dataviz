@@ -1,48 +1,49 @@
 /* ==============================
    DESIGN TOKENS & GLOBAL STYLES
-   Pacific DataViz Scrollytelling
-   — White Minimalist Theme
+   Pacific DataViz — White Minimalist
    ============================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
-  /* Color Palette — Clean White Minimalist */
-  --bg-primary: #ffffff;
+  /* Clean White Palette */
+  --bg-primary:   #ffffff;
   --bg-secondary: #f7f8fa;
-  --bg-card: #ffffff;
+  --bg-card:      #ffffff;
 
-  --text-primary: #1a1a2e;
+  --text-primary:   #1a1a2e;
   --text-secondary: #4a5568;
-  --text-muted: #94a3b8;
+  --text-muted:     #94a3b8;
 
-  /* Accent Colors — refined, muted tones */
-  --accent-teal: #0d9488;
-  --accent-teal-light: rgba(13, 148, 136, 0.12);
-  --accent-coral: #e74c3c;
-  --accent-coral-light: rgba(231, 76, 60, 0.12);
-  --accent-amber: #d97706;
-  --accent-amber-light: rgba(217, 119, 6, 0.12);
-  --accent-blue: #3b82f6;
+  /* Accent Colors */
+  --accent-teal:        #0d9488;
+  --accent-teal-light:  rgba(13, 148, 136, 0.10);
+  --accent-coral:       #e74c3c;
+  --accent-coral-light: rgba(231, 76, 60, 0.10);
+  --accent-amber:       #d97706;
+  --accent-amber-light: rgba(217, 119, 6, 0.10);
+  --accent-blue:        #3b82f6;
 
-  /* Legacy aliases for easier migration */
-  --accent-cyan: var(--accent-teal);
+  /* Legacy aliases */
+  --accent-cyan:      var(--accent-teal);
   --accent-cyan-glow: var(--accent-teal-light);
 
   /* Typography */
   --font-serif: 'Vollkorn', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
   --space-2xl: 5rem;
 
   /* Border Radius */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
   --radius-full: 9999px;
 
   /* Transitions */
@@ -50,18 +51,18 @@
   --transition-base: 300ms ease;
   --transition-slow: 600ms ease;
 
-  /* Card Styles (replacing glassmorphism) */
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
-  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 32px rgba(0, 0, 0, 0.06);
+  /* Card Styles */
+  --card-border:       #e2e8f0;
+  --card-shadow:       0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
 
   /* Z-index layers */
   --z-particles: 0;
-  --z-content: 10;
-  --z-sticky: 20;
-  --z-nav: 50;
-  --z-tooltip: 100;
+  --z-content:   10;
+  --z-sticky:    20;
+  --z-nav:       50;
+  --z-overlay:   80;
+  --z-tooltip:   100;
 }
 
 /* ==============================
@@ -101,21 +102,9 @@ h1, h2, h3, h4 {
   color: var(--text-primary);
 }
 
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  font-weight: 700;
-}
-
-h3 {
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  font-weight: 600;
-}
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); }
+h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 600; }
 
 p {
   font-family: var(--font-sans);
@@ -125,18 +114,13 @@ p {
 }
 
 /* ==============================
-   SELECTION STYLES
+   SELECTION
    ============================== */
-
-::selection {
-  background: var(--accent-teal);
-  color: #ffffff;
-}
+::selection { background: var(--accent-teal); color: #fff; }
 
 /* ==============================
-   D3 TOOLTIP (Global)
+   D3 TOOLTIP
    ============================== */
-
 .d3-tooltip {
   position: absolute;
   background: #ffffff;
@@ -149,7 +133,7 @@ p {
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--transition-fast);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   z-index: var(--z-tooltip);
   max-width: 280px;
 }
@@ -162,7 +146,6 @@ p {
 /* ==============================
    D3 AXIS OVERRIDES
    ============================== */
-
 .axis text {
   fill: var(--text-muted);
   font-family: var(--font-sans);
@@ -170,37 +153,14 @@ p {
   font-weight: 500;
 }
 
-.axis path,
-.axis line {
-  stroke: #e2e8f0;
-}
-
-.grid line {
-  stroke: #f1f5f9;
-  stroke-dasharray: 3 3;
-}
-
-.grid path {
-  stroke: none;
-}
+.axis path, .axis line { stroke: #e2e8f0; }
+.grid line { stroke: #f1f5f9; stroke-dasharray: 3 3; }
+.grid path { stroke: none; }
 
 /* ==============================
    SCROLLBAR
    ============================== */
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }

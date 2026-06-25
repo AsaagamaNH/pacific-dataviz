@@ -10,12 +10,12 @@ export default function AnimatedCounter({
   prefix = '',
   suffix = '',
   decimals = 0,
+  label = '',
 }) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef(null);
 
-  // Start counting when element enters viewport
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
@@ -33,7 +33,6 @@ export default function AnimatedCounter({
     return () => observer.disconnect();
   }, [hasStarted]);
 
-  // Animate count
   useEffect(() => {
     if (!hasStarted) return;
 
@@ -68,6 +67,7 @@ export default function AnimatedCounter({
       <div className="stat-number">
         {prefix}{displayValue}{suffix}
       </div>
+      {label && <div className="stat-label">{label}</div>}
     </div>
   );
 }

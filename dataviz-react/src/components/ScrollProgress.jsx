@@ -7,6 +7,7 @@ import React from 'react';
  */
 
 const CHAPTERS = [
+  { id: 'geomap', label: 'Where They Are' },
   { id: 'paradox', label: 'The Paradox' },
   { id: 'tides', label: 'Rising Tides' },
   { id: 'economic', label: 'Economic Toll' },
