@@ -1,11 +1,11 @@
-# 🌊 The Sinking Voices of the Pacific: A Tale of Climate Injustice
+# The Sinking Voices of the Pacific: A Tale of Climate Injustice
 
 > **Projek Infografis & Visualisasi Data Interaktif**  
 > *Tugas Besar Metode Visualisasi Data — Semester 4*
 
 ---
 
-## 📌 Tentang Proyek
+## Tentang Proyek
 
 Negara-negara Kepulauan Pasifik (**Pacific Island Countries and Territories - PICT**) berada di garis depan krisis iklim global. Visualisasi interaktif ini mengangkat narasi **Keadilan Iklim (Climate Justice)** — bagaimana wilayah yang berkontribusi paling sedikit terhadap emisi gas rumah kaca justru menjadi korban pertama dari kenaikan permukaan laut dan bencana alam.
 
@@ -13,7 +13,7 @@ Dibangun dengan **React + D3.js + Scrollama** menggunakan pendekatan *scrollytel
 
 ---
 
-## 📂 Struktur Proyek
+## Struktur Proyek
 
 ```
 Projek Infografis/
@@ -52,7 +52,7 @@ Projek Infografis/
 
 ---
 
-## 🎨 Alur Storytelling (5 Chapter)
+## Alur Storytelling (5 Chapter)
 
 | Chapter | Judul | Visualisasi | Insight |
 |---------|-------|-------------|---------|
@@ -64,7 +64,7 @@ Projek Infografis/
 
 ---
 
-## 🛠️ Metodologi Data
+## Metodologi Data
 
 Dari total **6.440 baris data**, sekitar **54% data kosong** karena keterbatasan pelaporan pulau-pulau kecil. Diatasi dengan **Hierarchical Mean Imputation**:
 
@@ -74,7 +74,7 @@ Dari total **6.440 baris data**, sekitar **54% data kosong** karena keterbatasan
 
 ---
 
-## 💻 Cara Menjalankan
+## Cara Menjalankan
 
 ### Preprocessing Data (opsional)
 ```bash
@@ -94,7 +94,7 @@ Buka `http://localhost:5173` di browser.
 
 ---
 
-## 🎨 Desain
+## Desain
 
 - **Tema**: White minimalist dengan aksen teal
 - **Font Judul**: Vollkorn (serif)
@@ -103,7 +103,7 @@ Buka `http://localhost:5173` di browser.
 
 ---
 
-## 📦 Tech Stack
+## Tech Stack
 
 - **React 19** + **Vite**
 - **D3.js v7** — visualisasi data
