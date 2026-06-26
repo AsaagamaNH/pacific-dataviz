@@ -237,7 +237,7 @@ export default function HomePage() {
                 <p className="author-email">asaagamanashrulhaq@student.telkomuniversity.ac.id</p>
               </div>
             </div>
-            
+
             <div className="author-card">
               <div className="author-avatar">MZ</div>
               <div className="author-info">
