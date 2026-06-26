@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useData } from '../context/DataContext';
 import HeroSection from '../components/HeroSection';
 import TransitionScreen from '../components/TransitionScreen';
@@ -29,7 +29,7 @@ const SECTIONS = [
 ];
 
 export default function HomePage() {
-  const { data, loading, error, topCountries, getIndicatorData } = useData();
+  const { data, loading, error, topCountries } = useData();
 
   // Prepare chart data
   const chartDataSets = useMemo(() => {
