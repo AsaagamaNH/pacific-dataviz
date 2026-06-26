@@ -225,6 +225,38 @@ export default function HomePage() {
             <li>Rainfall Anomaly Records — Regional Climate Centers</li>
           </ul>
         </div>
+
+        <div className="author-section">
+          <h3>Project Team</h3>
+          <div className="author-grid">
+            <div className="author-card">
+              <div className="author-avatar">AN</div>
+              <div className="author-info">
+                <h4>Asaagama Nashrul Haq</h4>
+                <p>103102400065</p>
+                <p className="author-email">asaagamanashrulhaq@student.telkomuniversity.ac.id</p>
+              </div>
+            </div>
+            
+            <div className="author-card">
+              <div className="author-avatar">MZ</div>
+              <div className="author-info">
+                <h4>Muhammad Zahir Mubasysyir</h4>
+                <p>103102400073</p>
+                <p className="author-email">muhammadzahir@student.telkomuniversity.ac.id</p>
+              </div>
+            </div>
+
+            <div className="author-card">
+              <div className="author-avatar">AD</div>
+              <div className="author-info">
+                <h4>Avrio De Galyn Athar</h4>
+                <p>103102400032</p>
+                <p className="author-email">avriodegalynathar@student.telkomuniversity.ac.id</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <footer className="footer">

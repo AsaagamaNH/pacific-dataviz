@@ -634,6 +634,79 @@
 }
 
 /* ==============================
+   AUTHORS SECTION
+   ============================== */
+.author-section {
+  margin-top: var(--space-2xl);
+  text-align: left;
+}
+
+.author-section h3 {
+  color: var(--accent-cyan);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.author-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+.author-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.author-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-cyan);
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--bg-primary);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.author-info h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.author-info p {
+  margin: 2px 0 0 0 !important;
+  font-size: 0.8rem;
+  color: var(--text-muted) !important;
+  text-align: left !important;
+}
+
+.author-info .author-email {
+  font-size: 0.75rem;
+  color: var(--accent-blue) !important;
+  word-break: break-all;
+}
+
+/* ==============================
    RESPONSIVE
    ============================== */
 @media (max-width: 1024px) {
