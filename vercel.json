@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd dataviz-react && npm install && npm run build",
+  "outputDirectory": "dataviz-react/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
