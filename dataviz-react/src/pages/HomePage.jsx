@@ -234,13 +234,17 @@ export default function HomePage() {
         </p>
         <hr className="closing-divider" />
         <div className="data-sources">
-          <h3>Data Sources</h3>
-          <ul>
-            <li>Pacific Data Hub — Pacific Community (SPC)</li>
-            <li>SDG Indicators: 1.5.1, 11.5.1, 11.5.2</li>
-            <li>Sea Level Monitoring Network — Pacific Region</li>
-            <li>Global GHG Emissions Database</li>
-            <li>Rainfall Anomaly Records — Regional Climate Centers</li>
+          <h3>Data Sources & Methodology</h3>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: '1.6' }}>
+            The datasets used in this visualization were officially provided by the competition organizers. The data encompasses various climate and demographic metrics across Pacific Island countries.
+          </p>
+          <ul style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+            <li>
+              <strong>Raw Data:</strong> Sourced from Pacific Data Hub (SPC), SDG Indicators, and regional climate monitors.
+            </li>
+            <li>
+              <strong>Data Processing:</strong> The provided raw dataset underwent data cleaning, imputation for missing values, and aggregation to produce the final structured dataset (<code>data_final_imputed.json</code>) used to drive these interactive visualizations.
+            </li>
           </ul>
         </div>
 
