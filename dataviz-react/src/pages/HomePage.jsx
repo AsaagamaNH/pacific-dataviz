@@ -249,7 +249,7 @@ export default function HomePage() {
             <p>
               The provided raw datasets contained inconsistencies and missing values. We performed rigorous data cleaning and statistical imputation to produce{' '}
               <a href="https://github.com/AsaagamaNH/pacific-dataviz/blob/main/data/Data%20Final.json" target="_blank" rel="noopener noreferrer">
-                <code>Data Final.json</code>
+                <code>Data Final</code>
               </a>
               , ensuring maximum accuracy and seamless rendering across our visualizations.
             </p>
