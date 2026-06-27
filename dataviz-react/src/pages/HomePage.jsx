@@ -235,17 +235,25 @@ export default function HomePage() {
         <hr className="closing-divider" />
         <div className="data-sources">
           <h3>Data Sources & Methodology</h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: '1.6' }}>
-            The datasets used in this visualization were officially provided by the competition organizers. The data encompasses various climate and demographic metrics across Pacific Island countries.
-          </p>
-          <ul style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-            <li>
-              <strong>Raw Data:</strong> Sourced from Pacific Data Hub (SPC), SDG Indicators, and regional climate monitors.
-            </li>
-            <li>
-              <strong>Data Processing:</strong> The provided raw dataset underwent data cleaning, imputation for missing values, and aggregation to produce the final structured dataset (<code>data_final_imputed.json</code>) used to drive these interactive visualizations.
-            </li>
-          </ul>
+          <div className="ds-item">
+            <h4>Primary Dataset</h4>
+            <p>
+              The core datasets were sourced exclusively from the{' '}
+              <a href="https://pacificdatavizchallenge.org/" target="_blank" rel="noopener noreferrer">
+                Pacific Dataviz Challenge
+              </a>. Original metrics derived from the Pacific Data Hub (SPC) and UN SDG Indicators.
+            </p>
+          </div>
+          <div className="ds-item">
+            <h4>Data Wrangling & Imputation</h4>
+            <p>
+              The provided raw datasets contained inconsistencies and missing values. We performed rigorous data cleaning and statistical imputation to produce{' '}
+              <a href="https://github.com/AsaagamaNH/pacific-dataviz/blob/main/data/Data%20Final.json" target="_blank" rel="noopener noreferrer">
+                <code>Data Final.json</code>
+              </a>
+              , ensuring maximum accuracy and seamless rendering across our visualizations.
+            </p>
+          </div>
         </div>
 
         <div className="author-section">
@@ -289,7 +297,7 @@ export default function HomePage() {
         <div className="github-source">
           <a href="https://github.com/AsaagamaNH/pacific-dataviz" target="_blank" rel="noopener noreferrer" className="github-link">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
             </svg>
             View Source on GitHub
           </a>
