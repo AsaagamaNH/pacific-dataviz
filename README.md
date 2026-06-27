@@ -3,7 +3,7 @@
 > **Projek Infografis & Visualisasi Data Interaktif**  
 > *Tugas Besar Metode Visualisasi Data — Semester 4*
 
-### 🌊 [Lihat Live Demo →](https://dataviz-react-two.vercel.app/)
+### [Live Demo →](https://dataviz-react-two.vercel.app/)
 
 ---
 
