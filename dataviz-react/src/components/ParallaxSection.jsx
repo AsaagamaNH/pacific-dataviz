@@ -15,14 +15,18 @@ gsap.registerPlugin(ScrollTrigger);
  *   className: string
  *   style: object
  *   children: ReactNode
+ *
+ * Fix (2.0): Uses gsap.fromTo() with explicit from/to states and
+ * ScrollTrigger.refresh() to prevent narrative text from disappearing
+ * after layout changes.
  */
 
 const ANIMATION_PRESETS = {
-  fadeUp: { y: 60, opacity: 0 },
-  fadeIn: { opacity: 0 },
-  scaleIn: { scale: 0.92, opacity: 0 },
-  slideLeft: { x: -80, opacity: 0 },
-  slideRight: { x: 80, opacity: 0 },
+  fadeUp: { from: { y: 60, opacity: 0 }, to: { y: 0, opacity: 1 } },
+  fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
+  scaleIn: { from: { scale: 0.92, opacity: 0 }, to: { scale: 1, opacity: 1 } },
+  slideLeft: { from: { x: -80, opacity: 0 }, to: { x: 0, opacity: 1 } },
+  slideRight: { from: { x: 80, opacity: 0 }, to: { x: 0, opacity: 1 } },
 };
 
 export default function ParallaxSection({
@@ -40,10 +44,13 @@ export default function ParallaxSection({
     const el = ref.current;
     if (!el) return;
 
-    const fromVars = ANIMATION_PRESETS[animation] || ANIMATION_PRESETS.fadeUp;
+    const preset = ANIMATION_PRESETS[animation] || ANIMATION_PRESETS.fadeUp;
 
-    const tween = gsap.from(el, {
-      ...fromVars,
+    // Set explicit initial state immediately so content is hidden before scroll
+    gsap.set(el, preset.from);
+
+    const tween = gsap.fromTo(el, preset.from, {
+      ...preset.to,
       delay,
       duration,
       ease: 'power3.out',
@@ -53,10 +60,17 @@ export default function ParallaxSection({
         end: 'top 35%',
         scrub: scrub === true ? 1 : scrub || false,
         toggleActions: scrub ? undefined : 'play none none none',
+        invalidateOnRefresh: true,
       },
     });
 
+    // Refresh ScrollTrigger after a short delay to account for layout shifts
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
     return () => {
+      clearTimeout(refreshTimer);
       tween.kill();
       ScrollTrigger.getAll()
         .filter(t => t.trigger === el)

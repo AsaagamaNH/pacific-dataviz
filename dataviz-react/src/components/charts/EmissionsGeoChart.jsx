@@ -9,6 +9,12 @@ const WORLD_TOPO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110
 /**
  * EmissionsGeoChart — GHG emissions on Pacific map as proportional circles.
  * Color scale: dark (#1A1F2E) → neon amber (#FFD93D).
+ *
+ * Changes (2.0):
+ * - Projection rotation [-175, 0] to fix antimeridian countries
+ * - EEZ dashed circles behind top-10 markers
+ * - Zoom-out (lower scale) so all countries fit
+ * - Rank numbers inside top-10 circles (sorted by emission value)
  */
 export default function EmissionsGeoChart({ data, topCountries = [], height: propHeight = 500 }) {
   const [containerRef, { width: containerWidth }] = useContainerSize();
@@ -39,7 +45,12 @@ export default function EmissionsGeoChart({ data, topCountries = [], height: pro
 
     const topNames = new Set(topCountries.map(c => c.country));
 
-    const projection = d3.geoMercator().center([170, -5]).scale(width * 0.9).translate([width / 2, height / 2]);
+    // Projection with rotation to fix antimeridian (Samoa, Tonga, Niue, etc.)
+    const projection = d3.geoMercator()
+      .rotate([-175, 0])
+      .center([-3, -8])
+      .scale(width * 0.65)
+      .translate([width / 2, height / 2]);
     const pathGen = d3.geoPath().projection(projection);
 
     svg.append('rect').attr('width', width).attr('height', height).attr('fill', '#060D1A');
@@ -60,6 +71,26 @@ export default function EmissionsGeoChart({ data, topCountries = [], height: pro
         return px >= -50 && px <= width + 50 && py >= -50 && py <= height + 50;
       });
 
+      // Sort top countries by emission descending for ranking
+      const topSorted = pacificData
+        .filter(d => d.isTop)
+        .sort((a, b) => b.emission - a.emission);
+      const rankMap = new Map(topSorted.map((d, i) => [d.name, i + 1]));
+
+      // --- EEZ dashed circles for top-10 ---
+      g.selectAll('.eez').data(pacificData.filter(d => d.isTop)).join('circle').attr('class', 'eez')
+        .attr('cx', d => projection([d.lon, d.lat])[0])
+        .attr('cy', d => projection([d.lon, d.lat])[1])
+        .attr('r', 0)
+        .attr('fill', 'none')
+        .attr('stroke', '#FFD93D')
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', '4 3')
+        .attr('stroke-opacity', 0.15)
+        .transition().duration(1200).delay((d, i) => i * 80)
+        .attr('r', 32);
+
+      // --- All markers ---
       g.selectAll('.marker').data(pacificData).join('circle').attr('class', 'marker')
         .attr('cx', d => projection([d.lon, d.lat])[0]).attr('cy', d => projection([d.lon, d.lat])[1])
         .attr('r', 0).attr('fill', d => colorScale(d.emission))
@@ -70,12 +101,27 @@ export default function EmissionsGeoChart({ data, topCountries = [], height: pro
         .transition().duration(800).delay((d, i) => i * 60)
         .attr('r', d => Math.max(d.isTop ? 12 : 6, Math.min((d.isTop ? 12 : 6) + Math.sqrt(d.emission) * 2, 22)));
 
+      // Country name labels for top-10
       g.selectAll('.lbl').data(pacificData.filter(d => d.isTop)).join('text').attr('class', 'lbl')
-        .attr('x', d => projection([d.lon, d.lat])[0]).attr('y', d => projection([d.lon, d.lat])[1] - 18)
+        .attr('x', d => projection([d.lon, d.lat])[0]).attr('y', d => projection([d.lon, d.lat])[1] - 22)
         .attr('text-anchor', 'middle').attr('fill', '#F1F5F9').attr('font-size', '9px')
         .attr('font-weight', '600').attr('font-family', 'Inter, sans-serif').attr('opacity', 0)
         .text(d => d.name.length > 15 ? d.name.substring(0, 12) + '…' : d.name)
         .transition().delay(1200).duration(600).attr('opacity', 0.8);
+
+      // Rank numbers inside top-10 circles
+      g.selectAll('.rank').data(pacificData.filter(d => d.isTop)).join('text').attr('class', 'rank')
+        .attr('x', d => projection([d.lon, d.lat])[0])
+        .attr('y', d => projection([d.lon, d.lat])[1])
+        .attr('dy', '0.35em')
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#0B0F19')
+        .attr('font-size', '8px')
+        .attr('font-weight', '700')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('opacity', 0)
+        .text(d => `#${rankMap.get(d.name)}`)
+        .transition().delay(1500).duration(400).attr('opacity', 1);
 
       // Tooltip
       const tooltip = d3.select(svgRef.current.parentNode).selectAll('.d3-tooltip').data([0]).join('div').attr('class', 'd3-tooltip');
@@ -85,7 +131,7 @@ export default function EmissionsGeoChart({ data, topCountries = [], height: pro
             .attr('filter', 'drop-shadow(0 0 16px rgba(255,217,61,0.7))');
           const [px, py] = projection([d.lon, d.lat]);
           tooltip.style('opacity', 1).style('left', `${px + 20}px`).style('top', `${py - 20}px`)
-            .html(`<strong>${d.name}</strong><br/>GHG/capita: ${d.emission.toFixed(2)} t CO₂${d.isTop ? '<br/><span style="color:#FFD93D">★ Top 10</span>' : ''}`);
+            .html(`<strong>${d.name}</strong><br/>GHG/capita: ${d.emission.toFixed(2)} t CO₂${d.isTop ? `<br/><span style="color:#FFD93D">★ #${rankMap.get(d.name)} Emitter</span>` : ''}`);
         })
         .on('mouseleave', function (event, d) {
           d3.select(this).transition().duration(200)

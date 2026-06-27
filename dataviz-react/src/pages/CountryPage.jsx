@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useMemo, useEffect } from 'react';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { ArrowLeft } from 'lucide-react';
 import TransitionScreen from '../components/TransitionScreen';
@@ -26,7 +26,13 @@ const SECTIONS = [
 export default function CountryPage() {
   const { countryName } = useParams();
   const decodedName = decodeURIComponent(countryName);
+  const location = useLocation();
   const { loading, error, getCountryData, getIndicatorData, topCountries } = useData();
+
+  // Scroll to top when navigating to this page (fixes landing on wrong section)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const countryData = useMemo(() => {
     return getCountryData(decodedName);
@@ -74,7 +80,7 @@ export default function CountryPage() {
 
       {/* ═══ COUNTRY HERO ═══ */}
       <section className="country-hero" id="country-hero">
-        <Link to="/" className="back-link">
+        <Link to="/#geomap" className="back-link">
           <ArrowLeft size={16} /> Back to Map
         </Link>
 
@@ -218,7 +224,7 @@ export default function CountryPage() {
             Pacific Island nations.
           </p>
           <Link
-            to="/"
+            to="/#geomap"
             style={{
               display: 'inline-flex',
               alignItems: 'center',

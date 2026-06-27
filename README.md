@@ -1,6 +1,7 @@
+
 # The Sinking Voices of the Pacific: A Tale of Climate Injustice
 
-> **Projek Infografis & Visualisasi Data Interaktif**  
+> **Projek Infografis & Visualisasi Data Interaktif**
 > *Tugas Besar Metode Visualisasi Data — Semester 4*
 
 ### [Live Demo →](https://dataviz-react-two.vercel.app/)
@@ -74,16 +75,16 @@ Projek Infografis/
 
 ## Alur Storytelling (8 Section)
 
-| Section | Judul | Visualisasi | Insight |
-|---------|-------|-------------|---------|
-| 1 | Hero | Animated Counters | Ringkasan: jumlah negara, kerugian ekonomi, populasi terdampak |
-| 2 | The Paradox | Transition Screen | Emisi < 0.03% global, tapi korban pertama perubahan iklim |
-| 3 | Rising Waters | Area Chart | Anomali permukaan laut meningkat secara akseleratif sejak 1993 |
-| 4 | Shattered Seasons | Bar Chart (anomali) | Pola curah hujan semakin volatile — swing antara kekeringan dan banjir |
-| 5 | The Economic Toll | Horizontal Bar Chart | Kerugian ekonomi akibat bencana iklim, Fiji menanggung beban terbesar |
-| 6 | Nations on the Front Line | Chart populasi | Ratusan ribu orang terdampak langsung bencana iklim |
-| 7 | Emissions vs. Impact | Geo-Bubble Chart | Ironi: emiter terkecil menderita paling besar |
-| 8 | Explore the Data | Peta Interaktif | Peta TopoJSON Pasifik — klik negara untuk detail data |
+| Section | Judul                     | Visualisasi          | Insight                                                                 |
+| ------- | ------------------------- | -------------------- | ----------------------------------------------------------------------- |
+| 1       | Hero                      | Animated Counters    | Ringkasan: jumlah negara, kerugian ekonomi, populasi terdampak          |
+| 2       | The Paradox               | Transition Screen    | Emisi < 0.03% global, tapi korban pertama perubahan iklim               |
+| 3       | Rising Waters             | Area Chart           | Anomali permukaan laut meningkat secara akseleratif sejak 1993          |
+| 4       | Shattered Seasons         | Bar Chart (anomali)  | Pola curah hujan semakin volatile — swing antara kekeringan dan banjir |
+| 5       | The Economic Toll         | Horizontal Bar Chart | Kerugian ekonomi akibat bencana iklim, Fiji menanggung beban terbesar   |
+| 6       | Nations on the Front Line | Chart populasi       | Ratusan ribu orang terdampak langsung bencana iklim                     |
+| 7       | Emissions vs. Impact      | Geo-Bubble Chart     | Ironi: emiter terkecil menderita paling besar                           |
+| 8       | Explore the Data          | Peta Interaktif      | Peta TopoJSON Pasifik — klik negara untuk detail data                  |
 
 Setiap chapter diawali **Transition Screen** dengan judul & narasi, diikuti **Chart Section** berisi visualisasi D3.js dengan penjelasan kontekstual.
 
@@ -108,6 +109,7 @@ Dari total **6.440 baris data**, sekitar **54% data kosong** karena keterbatasan
 ## Cara Menjalankan
 
 ### Preprocessing Data (opsional)
+
 ```bash
 pip install pandas
 cd scripts
@@ -115,6 +117,7 @@ python merge_and_impute.py
 ```
 
 ### Menjalankan Visualisasi
+
 ```bash
 cd dataviz-react
 npm install
@@ -164,8 +167,8 @@ Aplikasi di-deploy menggunakan **Vercel**. Konfigurasi routing tersedia di `verc
 
 ## Tim Proyek
 
-| Nama | NIM | Email |
-|------|-----|-------|
-| Asaagama Nashrul Haq | 103102400065 | asaagamanashrulhaq@student.telkomuniversity.ac.id |
-| Muhammad Zahir Mubasysyir | 103102400073 | muhammadzahir@student.telkomuniversity.ac.id |
-| Avrio De Galyn Athar | 103102400032 | avriodegalynathar@student.telkomuniversity.ac.id |
+| Nama                      | NIM          | Email                                             |
+| ------------------------- | ------------ | ------------------------------------------------- |
+| Asaagama Nashrul Haq      | 103102400065 | asaagamanashrulhaq@student.telkomuniversity.ac.id |
+| Muhammad Zahir Mubasysyir | 103102400073 | muhammadzahir@student.telkomuniversity.ac.id      |
+| Avrio De Galyn Athar      | 103102400032 | avriodegalynathar@student.telkomuniversity.ac.id  |

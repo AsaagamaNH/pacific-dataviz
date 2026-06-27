@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import HeroSection from '../components/HeroSection';
 import TransitionScreen from '../components/TransitionScreen';
@@ -30,6 +31,23 @@ const SECTIONS = [
 
 export default function HomePage() {
   const { data, loading, error, topCountries } = useData();
+  const location = useLocation();
+
+  // Scroll to hash section when navigating back (e.g. /#geomap from CountryPage)
+  useEffect(() => {
+    if (location.hash) {
+      // Small delay to let the DOM render before scrolling
+      const timer = setTimeout(() => {
+        const el = document.getElementById(location.hash.slice(1));
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
 
   // Prepare chart data
   const chartDataSets = useMemo(() => {
@@ -230,7 +248,9 @@ export default function HomePage() {
           <h3>Project Team</h3>
           <div className="author-grid">
             <div className="author-card">
-              <div className="author-avatar">A1</div>
+              <div className="author-avatar">
+                <img src="/AsaagamaNH.jpg" alt="Asaagama Nashrul Haq" />
+              </div>
               <div className="author-info">
                 <h4>Asaagama Nashrul Haq</h4>
                 <p>103102400065</p>
@@ -239,7 +259,9 @@ export default function HomePage() {
             </div>
 
             <div className="author-card">
-              <div className="author-avatar">A2</div>
+              <div className="author-avatar">
+                <img src="/MUHAMMAD ZAHIR MUBASYSYIR.jpg" alt="Muhammad Zahir Mubasysyir" />
+              </div>
               <div className="author-info">
                 <h4>Muhammad Zahir Mubasysyir</h4>
                 <p>103102400073</p>
@@ -248,7 +270,9 @@ export default function HomePage() {
             </div>
 
             <div className="author-card">
-              <div className="author-avatar">A3</div>
+              <div className="author-avatar">
+                <img src="/Avrio.jpg" alt="Avrio De Galyn Athar" />
+              </div>
               <div className="author-info">
                 <h4>Avrio De Galyn Athar</h4>
                 <p>103102400032</p>

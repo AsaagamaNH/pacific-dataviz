@@ -11,6 +11,13 @@ const WORLD_TOPO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110
 /**
  * GeoMapSection — Interactive Pacific-zoomed map with top 10 countries.
  * Click → navigate to country detail page.
+ *
+ * Changes (2.0):
+ * - Projection rotation [-175, 0] to fix antimeridian countries
+ * - EEZ dashed circles behind top-10 markers
+ * - Zoom-out (lower scale) so all countries fit
+ * - Non-top-10 Pacific countries shown as dim dots
+ * - Rank numbers inside circles
  */
 export default function GeoMapSection({ topCountries = [], id }) {
   const [containerRef, { width: containerWidth }] = useContainerSize();
@@ -21,7 +28,7 @@ export default function GeoMapSection({ topCountries = [], id }) {
     if (!topCountries.length || !containerWidth) return;
 
     const width = containerWidth;
-    const height = 600;
+    const height = 500;
 
     d3.select(svgRef.current).selectAll('*').remove();
 
@@ -34,7 +41,12 @@ export default function GeoMapSection({ topCountries = [], id }) {
       .domain([0, maxScore])
       .interpolator(t => d3.interpolateRgb('#0B2E26', '#00F5D4')(t));
 
-    const projection = d3.geoMercator().center([172, -8]).scale(width * 1.1).translate([width / 2, height / 2]);
+    // Projection with rotation to fix antimeridian (Samoa, Tonga, Niue, etc.)
+    const projection = d3.geoMercator()
+      .rotate([-175, 0])
+      .center([-3, -8])
+      .scale(width * 0.75)
+      .translate([width / 2, height / 2]);
     const pathGen = d3.geoPath().projection(projection);
 
     svg.append('rect').attr('width', width).attr('height', height).attr('fill', '#060D1A').attr('rx', 20);
@@ -47,6 +59,32 @@ export default function GeoMapSection({ topCountries = [], id }) {
       g.selectAll('.bg').data(countries.features).join('path').attr('class', 'bg')
         .attr('d', pathGen).attr('fill', '#1A1F2E').attr('stroke', 'rgba(255,255,255,0.03)').attr('stroke-width', 0.3);
 
+      // --- Non-top-10 dim dots (all Pacific countries not in top 10) ---
+      const nonTopCoords = PACIFIC_COUNTRIES
+        .filter(pc => !scoreMap.has(pc.name))
+        .map(pc => ({
+          ...pc,
+          projected: projection([pc.lon, pc.lat]),
+        }))
+        .filter(d => d.projected[0] > -100 && d.projected[0] < width + 100 && d.projected[1] > -100 && d.projected[1] < height + 100);
+
+      g.selectAll('.non-top').data(nonTopCoords).join('circle').attr('class', 'non-top')
+        .attr('cx', d => d.projected[0]).attr('cy', d => d.projected[1])
+        .attr('r', 4)
+        .attr('fill', 'rgba(255,255,255,0.08)')
+        .attr('stroke', 'rgba(255,255,255,0.12)')
+        .attr('stroke-width', 0.5);
+
+      // Dim labels for non-top-10
+      g.selectAll('.non-top-lbl').data(nonTopCoords).join('text').attr('class', 'non-top-lbl')
+        .attr('x', d => d.projected[0]).attr('y', d => d.projected[1] - 8)
+        .attr('text-anchor', 'middle')
+        .attr('fill', 'rgba(255,255,255,0.2)')
+        .attr('font-size', '7px')
+        .attr('font-family', 'Inter, sans-serif')
+        .text(d => d.name.length > 12 ? d.name.substring(0, 10) + '…' : d.name);
+
+      // --- Top 10 countries ---
       const topCoords = PACIFIC_COUNTRIES
         .filter(pc => scoreMap.has(pc.name))
         .map(pc => ({
@@ -54,11 +92,18 @@ export default function GeoMapSection({ topCountries = [], id }) {
           score: scoreMap.get(pc.name),
           projected: projection([pc.lon, pc.lat]),
         }))
-        .filter(d => d.projected[0] > -100 && d.projected[0] < width + 100 && d.projected[1] > -100 && d.projected[1] < height + 100);
+        .filter(d => d.projected[0] > -100 && d.projected[0] < width + 100 && d.projected[1] > -100 && d.projected[1] < height + 100)
+        .sort((a, b) => b.score - a.score);
 
       const circles = g.selectAll('.cc').data(topCoords).join('g').attr('class', 'cc')
         .attr('transform', d => `translate(${d.projected[0]}, ${d.projected[1]})`)
         .style('cursor', 'pointer');
+
+      // EEZ dashed circle (Large Ocean State territory representation)
+      circles.append('circle').attr('r', 0).attr('fill', 'none')
+        .attr('stroke', d => colorScale(d.score)).attr('stroke-width', 1)
+        .attr('stroke-dasharray', '4 3').attr('stroke-opacity', 0.2)
+        .transition().duration(1200).delay((d, i) => i * 100).attr('r', 36);
 
       // Outer glow
       circles.append('circle').attr('r', 0).attr('fill', 'none')
@@ -92,7 +137,7 @@ export default function GeoMapSection({ topCountries = [], id }) {
 
       circles
         .on('mouseenter', function (event, d) {
-          d3.select(this).select('circle:nth-child(2)')
+          d3.select(this).select('circle:nth-child(3)')
             .transition().duration(200).attr('r', 20)
             .attr('filter', 'drop-shadow(0 0 24px rgba(0,245,212,0.7))');
           tooltip.style('opacity', 1)
@@ -101,7 +146,7 @@ export default function GeoMapSection({ topCountries = [], id }) {
             .html(`<strong style="color:#00F5D4">${d.name}</strong><br/>Impact Score: ${d.score}<br/><span style="color:#64748B;font-size:0.75rem">Click to explore →</span>`);
         })
         .on('mouseleave', function (event, d) {
-          d3.select(this).select('circle:nth-child(2)')
+          d3.select(this).select('circle:nth-child(3)')
             .transition().duration(200).attr('r', 14)
             .attr('filter', d.score === maxScore
               ? 'drop-shadow(0 0 18px rgba(0,245,212,0.6))'
@@ -115,8 +160,8 @@ export default function GeoMapSection({ topCountries = [], id }) {
       if (fiji.size()) {
         (function pulse() {
           fiji.select('circle:first-child')
-            .transition().duration(1500).attr('r', 30).attr('stroke-opacity', 0.5)
-            .transition().duration(1500).attr('r', 24).attr('stroke-opacity', 0.2)
+            .transition().duration(1500).attr('r', 42).attr('stroke-opacity', 0.4)
+            .transition().duration(1500).attr('r', 36).attr('stroke-opacity', 0.2)
             .on('end', pulse);
         })();
       }
