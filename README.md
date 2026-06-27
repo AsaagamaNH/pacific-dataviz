@@ -120,7 +120,6 @@ python merge_and_impute.py
 
 ```bash
 cd dataviz-react
-npm install
 npm run dev
 ```
 
